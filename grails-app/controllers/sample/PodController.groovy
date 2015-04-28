@@ -9,7 +9,7 @@ import com.uberall.uberdoc.annotation.Resource
 @Error(errorCode = "CONF409", httpCode = 409, description = "all actions in this file may throw a 409 to indicate conflict")
 @HeaderParam(name = "publicToken", sampleValue = "all methods in this file should send a header param", description = "this param should be sent within the headers")
 @HeaderParam(name = "other token", sampleValue = "just some other token that every method should send", description = "this param should also be sent within the headers")
-class PodController {
+class PodController { // this example simulates a CRUD-ish controller
 
     @Resource(requestObject = Pod, responseCollectionOf = Pod, description = "this resource allows all Pods to be retrieved from DB")
     @Error(errorCode = "NF404", httpCode = 404, description = "returned if the resource does not exist")
