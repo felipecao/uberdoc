@@ -5,16 +5,8 @@ import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 import java.lang.annotation.Target
 
-@Target(ElementType.METHOD)
+@Target([ElementType.METHOD, ElementType.TYPE])
 @Retention(RetentionPolicy.RUNTIME)
-@interface QueryParam {
-
-    String name()
-
-    String description() default ""
-
-    boolean required() default true
-
-    String sampleValue() default ""
-
+@interface Errors {
+    Error[] value()
 }

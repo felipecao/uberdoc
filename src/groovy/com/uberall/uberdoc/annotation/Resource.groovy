@@ -11,12 +11,12 @@ import java.lang.annotation.Target
 
     String description() default ""
 
-    Class requestObject() default null
+    Class requestObject() default {}
 
-    Class responseObject() default null
+    Class responseObject() default {}
 
-    Class responseCollectionOf() default null
+    Class responseCollectionOf() default {}
 
-    Class object() default null // if requestObject and responseObject are the same, just use this attribute as a shortcut
+    Class object() default {} // if requestObject and responseObject are the same, just use this attribute as a shortcut
 
 }
