@@ -9,5 +9,8 @@ class UrlMappings {
 
         "/"(view:"/index")
         "500"(view:'/error')
+
+        "/api/pods"    (controller: 'pod', action: [POST: "create"], parseRequest: true)
+        "/api/pods/$id"(controller: 'pod', action: [PUT: "update", PATCH: "update", GET: "get", DELETE: "delete"], parseRequest: true)
 	}
 }

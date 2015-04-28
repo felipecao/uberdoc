@@ -9,10 +9,14 @@ import java.lang.annotation.Target
 @Retention(RetentionPolicy.RUNTIME)
 @interface Resource {
 
-    String description()
+    String description() default ""
 
-    Class requestObject()
+    Class requestObject() default null
 
-    Class responseObject()
+    Class responseObject() default null
+
+    Class responseCollectionOf() default null
+
+    Class object() default null // if requestObject and responseObject are the same, just use this attribute as a shortcut
 
 }
