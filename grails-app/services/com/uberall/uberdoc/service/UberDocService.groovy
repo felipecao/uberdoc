@@ -16,7 +16,7 @@ class UberDocService {
         Map apiInfo = [:]
 
         for(GrailsClass controller: controllers){
-            Map genericErrors = getErrors(controller)
+            List<Map> genericErrors = getErrors(controller)
             Map genericHeaders = [:]
 
             getActionsForController(controller).each { action ->
@@ -36,7 +36,7 @@ class UberDocService {
     }
 
     private List<Map> getErrors(GrailsClass gClass){
-        def errors = new MetadataReader().getAnnotation(Errors).inClass(gClass)
+        def errors = new MetadataReader().getAnnotation(Errors).inController(gClass)
         def ret = []
 
         if(!errors){

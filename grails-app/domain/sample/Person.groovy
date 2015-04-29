@@ -8,6 +8,7 @@ class Person {
 
     static transients = ['fullName']
     static hasMany = [nickNames: String, pods: Pod]
+    static hasOne = [ship: Spaceship]
 
     String getFullName() {
         return firstName + " " + lastName
