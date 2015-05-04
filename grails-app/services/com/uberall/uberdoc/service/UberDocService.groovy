@@ -1,6 +1,8 @@
 package com.uberall.uberdoc.service
 
 import com.uberall.uberdoc.annotation.Errors
+import com.uberall.uberdoc.annotation.HeaderParam
+import com.uberall.uberdoc.annotation.HeaderParams
 import com.uberall.uberdoc.metadata.MetadataReader
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.web.mapping.UrlMappings
@@ -17,7 +19,7 @@ class UberDocService {
 
         for(GrailsClass controller: controllers){
             List<Map> genericErrors = getErrors(controller)
-            Map genericHeaders = [:]
+            List<Map> genericHeaders = getHeaders(controller)
 
             getActionsForController(controller).each { action ->
                 // TODO implement this!
@@ -32,7 +34,27 @@ class UberDocService {
     }
 
     private List getActionsForController(GrailsClass controller){
-        // TODO implement this!
+        def mappedActions = grailsUrlMappingsHolder.urlMappings.findAll {
+            it.controllerName == controller.name.toLowerCase()
+        }
+
+        if(!mappedActions){
+            return []
+        }
+
+        // url, method, annotations from action
+        def resources = []
+
+        mappedActions.each { action ->
+            if(!action.actionName in String){
+                for(Map.Entry entry: action.actionName){
+                    resources << [name: entry.value, uri: action.toString(), method: entry.key]
+                }
+            }
+//            resources << [actionName: "", name: "", uri: "", method: ""]
+        }
+
+        return resources
     }
 
     private List<Map> getErrors(GrailsClass gClass){
@@ -45,6 +67,21 @@ class UberDocService {
 
         errors.value().each { err ->
             ret << [errorCode: err.errorCode(), httpCode: err.httpCode(), description: err.description()]
+        }
+
+        return ret
+    }
+
+    private List<Map> getHeaders(GrailsClass gClass){
+        def headers = new MetadataReader().getAnnotation(HeaderParams).inController(gClass)
+        def ret = []
+
+        if(!headers){
+            return []
+        }
+
+        headers.value().each { hdr ->
+            ret << [name: hdr.name(), description: hdr.description(), required: hdr.required(), sampleValue: hdr.sampleValue()]
         }
 
         return ret
