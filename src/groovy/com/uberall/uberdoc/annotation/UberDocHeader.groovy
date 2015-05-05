@@ -7,6 +7,13 @@ import java.lang.annotation.Target
 
 @Target([ElementType.METHOD, ElementType.TYPE])
 @Retention(RetentionPolicy.RUNTIME)
-@interface Errors {
-    Error[] value()
+@interface UberDocHeader {
+
+    String name()
+
+    String description() default ""
+
+    boolean required() default true
+
+    String sampleValue() default ""
 }

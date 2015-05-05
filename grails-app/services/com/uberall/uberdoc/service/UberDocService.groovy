@@ -1,13 +1,18 @@
 package com.uberall.uberdoc.service
 
-import com.uberall.uberdoc.annotation.Errors
-import com.uberall.uberdoc.annotation.HeaderParam
-import com.uberall.uberdoc.annotation.HeaderParams
+import com.uberall.uberdoc.annotation.UberDocErrors
+import com.uberall.uberdoc.annotation.UberDocError
+import com.uberall.uberdoc.annotation.UberDocHeader
+import com.uberall.uberdoc.annotation.UberDocHeaders
+import com.uberall.uberdoc.annotation.UberDocQueryParam
+import com.uberall.uberdoc.annotation.UberDocResource
 import com.uberall.uberdoc.metadata.MetadataReader
+import com.uberall.uberdoc.metadata.RequestAndResponseObjects
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.web.mapping.UrlMappings
 
 import java.lang.reflect.AnnotatedElement
+import java.lang.reflect.Method
 
 class UberDocService {
 
@@ -17,14 +22,41 @@ class UberDocService {
     Map getApiDocs() {
         Map apiInfo = [:]
 
-        for(GrailsClass controller: controllers){
-            List<Map> genericErrors = getErrors(controller)
-            List<Map> genericHeaders = getHeaders(controller)
+        List<Map> genericErrors
+        List<Map> genericHeaders
+        List methods
+        List resources
+        RequestAndResponseObjects objects = new RequestAndResponseObjects() // this info will be put in the root of the returned object
 
-            getActionsForController(controller).each { action ->
-                // TODO implement this!
+        apiInfo.objects = [:]
+        apiInfo.resources = [:]
+
+        for(GrailsClass controller: controllers){
+            genericErrors = getErrors(controller)
+            genericHeaders = getHeaders(controller)
+            methods = getMethodsForController(controller)
+            resources = getResourcesForController(controller)
+
+            resources.each { res ->
+                def method = methods.find { it.name == res.name }
+
+                def resource = getAnnotationOfTypeInMethod(UberDocResource, method)
+                objects.extractFromResource(resource)
+
+                def errors = getAnnotationOfTypeInMethod(UberDocErrors, method)
+                def singleError = getAnnotationOfTypeInMethod(UberDocError, method)
+
+                def headers = getAnnotationOfTypeInMethod(UberDocHeaders, method)
+                def singleHeader = getAnnotationOfTypeInMethod(UberDocHeader, method)
+
+                def singleQueryParam = getAnnotationOfTypeInMethod(UberDocQueryParam, method)
+
+                def allAnnotations = getAnnotationsOfSupportedTypesInMethod(method)
+
+                println "allAnnotations = $allAnnotations"
             }
         }
+        apiInfo.objects = objects.fetch()
 
         return apiInfo
     }
@@ -33,7 +65,7 @@ class UberDocService {
         return grailsApplication.controllerClasses
     }
 
-    private List getActionsForController(GrailsClass controller){
+    private List getResourcesForController(GrailsClass controller){
         def mappedActions = grailsUrlMappingsHolder.urlMappings.findAll {
             it.controllerName == controller.name.toLowerCase()
         }
@@ -42,23 +74,33 @@ class UberDocService {
             return []
         }
 
-        // url, method, annotations from action
         def resources = []
 
         mappedActions.each { action ->
-            if(!action.actionName in String){
-                for(Map.Entry entry: action.actionName){
+            if(action.actionName in Map){
+                for(Map.Entry entry: action.actionName.entrySet()){
                     resources << [name: entry.value, uri: action.toString(), method: entry.key]
                 }
             }
-//            resources << [actionName: "", name: "", uri: "", method: ""]
         }
 
         return resources
     }
 
+    private List getMethodsForController(GrailsClass controller){
+        return controller.clazz.methods
+    }
+
+    private <T> T getAnnotationOfTypeInMethod(Class annotation, Method method){
+        return method.annotations.find { it.annotationType() == annotation } as T
+    }
+
+    private <T> List<T> getAnnotationsOfSupportedTypesInMethod(Method method){
+        return method.annotations.findAll { it.annotationType() in [UberDocResource, UberDocErrors, UberDocError, UberDocHeaders, UberDocHeader, UberDocQueryParam] } as List<T>
+    }
+
     private List<Map> getErrors(GrailsClass gClass){
-        def errors = new MetadataReader().getAnnotation(Errors).inController(gClass)
+        def errors = new MetadataReader().getAnnotation(UberDocErrors).inController(gClass)
         def ret = []
 
         if(!errors){
@@ -73,7 +115,7 @@ class UberDocService {
     }
 
     private List<Map> getHeaders(GrailsClass gClass){
-        def headers = new MetadataReader().getAnnotation(HeaderParams).inController(gClass)
+        def headers = new MetadataReader().getAnnotation(UberDocHeaders).inController(gClass)
         def ret = []
 
         if(!headers){

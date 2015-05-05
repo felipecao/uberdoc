@@ -7,7 +7,7 @@ import java.lang.annotation.Target
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@interface Model {
+@interface UberDocModel {
 
     String description()
 

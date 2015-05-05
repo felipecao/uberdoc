@@ -7,12 +7,6 @@ import java.lang.annotation.Target
 
 @Target([ElementType.METHOD, ElementType.TYPE])
 @Retention(RetentionPolicy.RUNTIME)
-@interface Error {
-
-    String errorCode()
-
-    int httpCode()
-
-    String description() default ""
-
+@interface UberDocHeaders {
+    UberDocHeader[] value()
 }

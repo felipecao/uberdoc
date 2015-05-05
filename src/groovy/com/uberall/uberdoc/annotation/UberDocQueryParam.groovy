@@ -7,7 +7,7 @@ import java.lang.annotation.Target
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@interface QueryParam {
+@interface UberDocQueryParam {
 
     String name()
 

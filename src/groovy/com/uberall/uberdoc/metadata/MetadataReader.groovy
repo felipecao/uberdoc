@@ -2,8 +2,6 @@ package com.uberall.uberdoc.metadata
 
 import org.codehaus.groovy.grails.commons.GrailsClass
 
-import java.lang.reflect.AnnotatedElement
-
 class MetadataReader {
 
     private def type

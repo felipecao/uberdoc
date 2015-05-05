@@ -7,6 +7,12 @@ import java.lang.annotation.Target
 
 @Target([ElementType.METHOD, ElementType.TYPE])
 @Retention(RetentionPolicy.RUNTIME)
-@interface HeaderParams {
-    HeaderParam[] value()
+@interface UberDocError {
+
+    String errorCode()
+
+    int httpCode()
+
+    String description() default ""
+
 }

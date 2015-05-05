@@ -7,7 +7,7 @@ import java.lang.annotation.Target
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@interface Resource {
+@interface UberDocResource {
 
     String description() default ""
 
