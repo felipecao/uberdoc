@@ -2,6 +2,8 @@ package com.uberall.uberdoc.metadata
 
 import org.codehaus.groovy.grails.commons.GrailsClass
 
+import java.lang.reflect.Method
+
 class MetadataReader {
 
     private def type
@@ -17,6 +19,10 @@ class MetadataReader {
 
     def inController(GrailsClass controller){
         return controller.clazz.annotations.find { it.annotationType() == type }
+    }
+
+    def inMethod(Method method){
+        return method.annotations.find { it.annotationType() == type }
     }
 
 }

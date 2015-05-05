@@ -17,4 +17,6 @@ import java.lang.annotation.Target
 
     String sampleValue() default ""
 
+    boolean isCollection() default false
+
 }

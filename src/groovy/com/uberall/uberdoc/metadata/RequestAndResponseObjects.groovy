@@ -4,26 +4,26 @@ class RequestAndResponseObjects {
 
     Set requestAndResponseClasses = []
 
-    void extractFromResource(def annotation){
+    void extractFromResource(def uberDocResource){
 
-        if(!annotation){
+        if(!uberDocResource){
             return
         }
 
-        if(annotation.requestObject() && !(annotation.requestObject() in Closure)){
-            requestAndResponseClasses << annotation.requestObject()
+        if(uberDocResource.requestObject() && !(uberDocResource.requestObject() in Closure)){
+            requestAndResponseClasses << uberDocResource.requestObject()
         }
 
-        if(annotation.responseObject() && !(annotation.responseObject() in Closure)){
-            requestAndResponseClasses << annotation.responseObject()
+        if(uberDocResource.responseObject() && !(uberDocResource.responseObject() in Closure)){
+            requestAndResponseClasses << uberDocResource.responseObject()
         }
 
-        if(annotation.responseCollectionOf() && !(annotation.responseCollectionOf() in Closure)){
-            requestAndResponseClasses << annotation.responseCollectionOf()
+        if(uberDocResource.responseCollectionOf() && !(uberDocResource.responseCollectionOf() in Closure)){
+            requestAndResponseClasses << uberDocResource.responseCollectionOf()
         }
 
-        if(annotation.object() && !(annotation.object() in Closure)){
-            requestAndResponseClasses << annotation.object()
+        if(uberDocResource.object() && !(uberDocResource.object() in Closure)){
+            requestAndResponseClasses << uberDocResource.object()
         }
     }
 
@@ -31,7 +31,7 @@ class RequestAndResponseObjects {
         return convertToMap(requestAndResponseClasses)
     }
 
-    private Map convertToMap(Set set) {
+    private Map convertToMap(Set<Class> set) {
         // should extract information from our annotations on each class and spit it out as a map
         null
     }
