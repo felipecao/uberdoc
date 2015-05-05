@@ -7,12 +7,6 @@ import java.lang.annotation.Target
 
 @Target([ElementType.METHOD, ElementType.TYPE])
 @Retention(RetentionPolicy.RUNTIME)
-@interface UberDocUriParam {
-
-    String name()
-
-    String description() default ""
-
-    String sampleValue() default ""
-
+@interface UberDocQueryParams {
+    UberDocQueryParam[] value()
 }
