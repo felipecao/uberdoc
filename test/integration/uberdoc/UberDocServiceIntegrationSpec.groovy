@@ -2,23 +2,76 @@ package uberdoc
 
 import com.uberall.uberdoc.service.UberDocService
 import grails.test.spock.IntegrationSpec
+import sample.Pod
 
 class UberDocServiceIntegrationSpec extends IntegrationSpec {
 
-    def setup() {
-    }
+    def grailsApplication
+    def grailsUrlMappingsHolder
 
-    def cleanup() {
-    }
-
-    void "test something"() {
+    void "apiDocs works as expected"() {
         given:
-        UberDocService service = new UberDocService()
+        UberDocService service = new UberDocService(grailsApplication: grailsApplication, grailsUrlMappingsHolder: grailsUrlMappingsHolder)
 
         when:
         def m = service.apiDocs
 
         then:
         m
+
+        m.resources
+        5 == m.resources.size()
+
+        "POST" == m.resources[0].method
+        "/api/pods" == m.resources[0].uri
+        Pod == m.resources[0].requestObject
+        Pod == m.resources[0].responseObject
+        !m.resources[0].responseCollection
+        3 == m.resources[0].headers.size()
+        3 == m.resources[0].errors.size()
+        0 == m.resources[0].queryParams.size()
+        3 == m.resources[0].uriParams.size()
+
+        "PUT" == m.resources[1].method
+        "/api/pods/{id}" == m.resources[1].uri
+        Pod == m.resources[1].requestObject
+        Pod == m.resources[1].responseObject
+        !m.resources[1].responseCollection
+        2 == m.resources[1].headers.size()
+        3 == m.resources[1].errors.size()
+        1 == m.resources[1].queryParams.size()
+        0 == m.resources[1].uriParams.size()
+
+        "PATCH" == m.resources[2].method
+        "/api/pods/{id}" == m.resources[2].uri
+        Pod == m.resources[2].requestObject
+        Pod == m.resources[2].responseObject
+        !m.resources[2].responseCollection
+        2 == m.resources[2].headers.size()
+        3 == m.resources[2].errors.size()
+        1 == m.resources[2].queryParams.size()
+        0 == m.resources[2].uriParams.size()
+
+        "GET" == m.resources[3].method
+        "/api/pods/id" == m.resources[3].uri
+        Pod == m.resources[3].requestObject
+        !m.resources[3].responseObject
+        Pod == m.resources[3].responseCollection
+        2 == m.resources[3].headers.size()
+        4 == m.resources[3].errors.size()
+        0 == m.resources[3].queryParams.size()
+        1 == m.resources[3].uriParams.size()
+
+        "DELETE" == m.resources[4].method
+        "/api/pods/{id}" == m.resources[4].uri
+        !m.resources[4].requestObject
+        !m.resources[4].responseObject
+        !m.resources[4].responseCollection
+        2 == m.resources[4].headers.size()
+        3 == m.resources[4].errors.size()
+        1 == m.resources[4].queryParams.size()
+        0 == m.resources[4].uriParams.size()
+
+        m.objects
     }
 }

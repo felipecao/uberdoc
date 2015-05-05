@@ -1,6 +1,7 @@
 package com.uberall.uberdoc.metadata
 
 import com.uberall.uberdoc.annotation.UberDocErrors
+import org.codehaus.groovy.grails.commons.GrailsClass
 import sample.PodController
 import spock.lang.Specification
 import com.uberall.uberdoc.annotation.UberDocError
@@ -12,7 +13,7 @@ class MetadataReaderSpec extends Specification {
         MetadataReader reader = new MetadataReader()
 
         when:
-        def annotation = reader.getAnnotation(UberDocError).inClass(PodController.class)
+        def annotation = reader.getAnnotation(UberDocError).inClass(PodController.asType(GrailsClass))
 
         then:
         !annotation
@@ -23,7 +24,7 @@ class MetadataReaderSpec extends Specification {
         MetadataReader reader = new MetadataReader()
 
         when:
-        def annotation = reader.getAnnotation(UberDocErrors).inClass(PodController.class)
+        def annotation = reader.getAnnotation(UberDocErrors).inClass(PodController.asType(GrailsClass))
 
         then:
         annotation

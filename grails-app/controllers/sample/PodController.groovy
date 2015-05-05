@@ -5,7 +5,10 @@ import com.uberall.uberdoc.annotation.UberDocErrors
 import com.uberall.uberdoc.annotation.UberDocHeader
 import com.uberall.uberdoc.annotation.UberDocHeaders
 import com.uberall.uberdoc.annotation.UberDocQueryParam
+import com.uberall.uberdoc.annotation.UberDocQueryParams
 import com.uberall.uberdoc.annotation.UberDocResource
+import com.uberall.uberdoc.annotation.UberDocUriParam
+import com.uberall.uberdoc.annotation.UberDocUriParams
 
 @UberDocErrors([
         @UberDocError(errorCode = "XYZ123", httpCode = 412, description = "this is a general 412 error, to be applied to all actions/resources in this file"),
@@ -20,14 +23,24 @@ class PodController { // this example simulates a CRUD-ish controller
 
     @UberDocResource(requestObject = Pod, responseCollectionOf = Pod, description = "this resource allows all Pods to be retrieved from DB")
     @UberDocError(errorCode = "NF404", httpCode = 404, description = "returned if the resource does not exist")
-    @UberDocQueryParam(name = "id", description = "the id of the Pod to be retrieved from DB", sampleValue = "4")
+    @UberDocUriParam(name = "id", description = "the id of the Pod to be retrieved from DB", sampleValue = "4")
     def get() { }
 
+    @UberDocHeader(name = "hdr", sampleValue = "sample")
     @UberDocResource(responseObject = Pod, description = "this resource allows all Pods to be retrieved from DB")
+    @UberDocQueryParams([
+            @UberDocQueryParam(name = "page", description = "pagination", required = false, sampleValue = "1", isCollection = false)
+    ])
+    @UberDocQueryParam(name = "max", description = "max desc", required = true, sampleValue = "100", isCollection = true)
     def list() { }
 
-    @UberDocResource(object = Pod, description = "this resource creates Pods")
+    @UberDocResource(object = Pod)
     @UberDocHeader(name = "some header param", sampleValue = "hdr", description = "this is just something else to be sent on creation")
+    @UberDocUriParams([
+            @UberDocUriParam(name = "firstId", description = "the first id", sampleValue = "1"),
+            @UberDocUriParam(name = "secondId", description = "the second id", sampleValue = "2")
+    ])
+    @UberDocUriParam(name = "thirdId", description = "the third id", sampleValue = "3")
     def create() { }
 
     @UberDocResource(object = Pod)
