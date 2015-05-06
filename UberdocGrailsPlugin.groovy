@@ -1,19 +1,36 @@
 class UberdocGrailsPlugin {
+
     // the plugin version
-    def version = "0.1"
+    def version = "0.1-SNAPSHOT"
+
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.4 > *"
+
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
-        "grails-app/views/error.gsp"
+        "grails-app/views/**",
+        "grails-app/conf/**",
+        "grails-app/controllers/**",
+        "grails-app/domain/**",
+        "src/groovy/sample/**",
+        "test/**"
     ]
 
     // TODO Fill in these fields
     def title = "Uberdoc Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def author = "Felipe Carvalho"
+    def authorEmail = "felipe@uberall.com"
     def description = '''\
-Brief summary/description of the plugin.
+This plug-in is meant to provide a very simple way to extract RESTful information from Grails apps.
+
+What it does is going through all controllers annotated with @UberDocController and extract information from request/response objects, along with information from UrlMappings
+and structure it within a Map, that then can be used whatever way the app using it feels like is more appropriate.
+
+So, the plugin just provides:
+- a set of annotations
+- a Service with a public method that extracts information from classes and return it as a Map
+
+This was done on purpose, so that your app can decide on the best way to display or cache this information.
 '''
 
     // URL to the plugin's documentation
@@ -22,13 +39,13 @@ Brief summary/description of the plugin.
     // Extra (optional) plugin metadata
 
     // License: one of 'APACHE', 'GPL2', 'GPL3'
-//    def license = "APACHE"
+    def license = "APACHE"
 
     // Details of company behind the plugin (if there is one)
-//    def organization = [ name: "My Company", url: "http://www.my-company.com/" ]
+    def organization = [ name: "uberall GmbH", url: "https://uberall.com/" ]
 
     // Any additional developers beyond the author specified above.
-//    def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
+    def developers = [ [name: "Florian Langenhahn", email: "florian.langenhahn@uberall.com"] ]
 
     // Location of the plugin's issue tracker.
 //    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
