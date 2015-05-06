@@ -55,7 +55,7 @@ class MethodReaderSpec extends Specification {
         MethodReader reader = new MethodReader(PodController.methods.find { it.name == 'create' })
 
         then:
-        Pod == reader.requestObject
+        "Pod" == reader.requestObject
     }
 
     def "getRequestObject uses requestObject"(){
@@ -63,7 +63,7 @@ class MethodReaderSpec extends Specification {
         MethodReader reader = new MethodReader(PodController.methods.find { it.name == 'get' })
 
         then:
-        Pod == reader.requestObject
+        "Pod" == reader.requestObject
     }
 
     def "getRequestObject returns null if method has no request object"(){
@@ -87,7 +87,7 @@ class MethodReaderSpec extends Specification {
         MethodReader reader = new MethodReader(PodController.methods.find { it.name == 'create' })
 
         then:
-        Pod == reader.responseObject
+        "Pod" == reader.responseObject
     }
 
     def "getResponseObject uses responseObject"(){
@@ -95,7 +95,7 @@ class MethodReaderSpec extends Specification {
         MethodReader reader = new MethodReader(PodController.methods.find { it.name == 'list' })
 
         then:
-        Pod == reader.responseObject
+        "Pod" == reader.responseObject
     }
 
     def "getResponseObject returns null if method has no response object"(){
@@ -119,7 +119,7 @@ class MethodReaderSpec extends Specification {
         MethodReader reader = new MethodReader(PodController.methods.find { it.name == 'get' })
 
         then:
-        Pod == reader.responseCollection
+        "Pod" == reader.responseCollection
     }
 
     def "getResponseCollection returns null if method has no responseCollection object"(){

@@ -41,23 +41,23 @@ class MethodReader {
         return uberDocResource?.description() ?: null
     }
 
-    Class getRequestObject(){
+    String getRequestObject(){
         def uberDocResource = reader.getAnnotation(UberDocResource).inMethod(method)
         def requestObject = (uberDocResource?.requestObject() in Closure ) ? null : uberDocResource?.requestObject()
         def object = (uberDocResource?.object() in Closure ) ? null : uberDocResource?.object()
-        return requestObject ?: object
+        return requestObject?.simpleName ?: object?.simpleName
     }
 
-    Class getResponseObject(){
+    String getResponseObject(){
         def uberDocResource = reader.getAnnotation(UberDocResource).inMethod(method)
         def responseObject = (uberDocResource?.responseObject() in Closure ) ? null : uberDocResource?.responseObject()
         def object = (uberDocResource?.object() in Closure ) ? null : uberDocResource?.object()
-        return responseObject ?: object
+        return responseObject?.simpleName ?: object?.simpleName
     }
 
-    Class getResponseCollection(){
+    String getResponseCollection(){
         def uberDocResource = reader.getAnnotation(UberDocResource).inMethod(method)
-        return (uberDocResource?.responseCollectionOf() in Closure ) ? null : uberDocResource?.responseCollectionOf()
+        return (uberDocResource?.responseCollectionOf() in Closure ) ? null : uberDocResource?.responseCollectionOf()?.simpleName
     }
 
     List<Map> getErrors(){
