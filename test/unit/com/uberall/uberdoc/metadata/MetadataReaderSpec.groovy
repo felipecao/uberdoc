@@ -1,7 +1,9 @@
 package com.uberall.uberdoc.metadata
 
+import com.uberall.uberdoc.annotation.UberDocController
 import com.uberall.uberdoc.annotation.UberDocErrors
 import org.codehaus.groovy.grails.commons.GrailsClass
+import sample.OtherController
 import sample.PodController
 import spock.lang.Specification
 import com.uberall.uberdoc.annotation.UberDocError
@@ -29,6 +31,28 @@ class MetadataReaderSpec extends Specification {
         then:
         annotation
         3 == annotation.value().size()
+    }
+
+    void "getAnnotation for PodController and annotation UberDocController returns an instance"() {
+        given:
+        MetadataReader reader = new MetadataReader()
+
+        when:
+        def annotation = reader.getAnnotation(UberDocController).inClass(PodController.asType(GrailsClass))
+
+        then:
+        annotation
+    }
+
+    void "getAnnotation for OtherController and annotation UberDocController returns null"() {
+        given:
+        MetadataReader reader = new MetadataReader()
+
+        when:
+        def annotation = reader.getAnnotation(UberDocController).inClass(OtherController.asType(GrailsClass))
+
+        then:
+        !annotation
     }
 
 }

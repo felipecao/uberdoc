@@ -56,34 +56,36 @@ class UberDocService {
         for(GrailsClass controller: grailsReader.controllers){
             controllerReader = new ControllerReader(controller)
 
-            genericErrors = controllerReader.errors
-            genericHeaders = controllerReader.headers
+            if(controllerReader.controllerIsSupported){
+                genericErrors = controllerReader.errors
+                genericHeaders = controllerReader.headers
 
-            controllerMethods = grailsReader.getMethodsFrom(controller)
-            controllerMappings = grailsReader.extractUrlMappingsFor(controller)
+                controllerMethods = grailsReader.getMethodsFrom(controller)
+                controllerMappings = grailsReader.extractUrlMappingsFor(controller)
 
-            controllerMappings.each { mapping ->
-                def controllerMethod = controllerMethods.find { it.name == mapping.name }
+                controllerMappings.each { mapping ->
+                    def controllerMethod = controllerMethods.find { it.name == mapping.name }
 
-                methodReader = new MethodReader(controllerMethod)
-                        .useGenericErrors(genericErrors)
-                        .useGenericHeaders(genericHeaders)
+                    methodReader = new MethodReader(controllerMethod)
+                            .useGenericErrors(genericErrors)
+                            .useGenericHeaders(genericHeaders)
 
-                objects.extractFromResource(metadataReader.getAnnotation(UberDocResource).inMethod(controllerMethod))
+                    objects.extractFromResource(metadataReader.getAnnotation(UberDocResource).inMethod(controllerMethod))
 
-                restfulResource = [:]
-                restfulResource.description = methodReader.description
-                restfulResource.uri = replaceUriParams(mapping.uri, methodReader.uriParams)
-                restfulResource.method = mapping.method
-                restfulResource.requestObject = methodReader.requestObject
-                restfulResource.responseObject = methodReader.responseObject
-                restfulResource.responseCollection = methodReader.responseCollection
-                restfulResource.uriParams = methodReader.uriParams
-                restfulResource.queryParams = methodReader.queryParams
-                restfulResource.headers = methodReader.headers
-                restfulResource.errors = methodReader.errors
+                    restfulResource = [:]
+                    restfulResource.description = methodReader.description
+                    restfulResource.uri = replaceUriParams(mapping.uri, methodReader.uriParams)
+                    restfulResource.method = mapping.method
+                    restfulResource.requestObject = methodReader.requestObject
+                    restfulResource.responseObject = methodReader.responseObject
+                    restfulResource.responseCollection = methodReader.responseCollection
+                    restfulResource.uriParams = methodReader.uriParams
+                    restfulResource.queryParams = methodReader.queryParams
+                    restfulResource.headers = methodReader.headers
+                    restfulResource.errors = methodReader.errors
 
-                apiInfo.resources << restfulResource
+                    apiInfo.resources << restfulResource
+                }
             }
         }
 

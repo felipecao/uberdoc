@@ -35,7 +35,9 @@ class GrailsReader {
         mappedActions.each { action ->
             if(action.actionName in Map){
                 for(Map.Entry entry: action.actionName.entrySet()){
-                    resources << [name: entry.value, uri: action.toString(), method: entry.key]
+                    if(!action.parameterValues.action?.deprecated){
+                        resources << [name: entry.value, uri: action.toString(), method: entry.key]
+                    }
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.uberall.uberdoc.metadata
 
+import com.uberall.uberdoc.annotation.UberDocController
 import com.uberall.uberdoc.annotation.UberDocError
 import com.uberall.uberdoc.annotation.UberDocErrors
 import com.uberall.uberdoc.annotation.UberDocHeader
@@ -7,6 +8,7 @@ import com.uberall.uberdoc.annotation.UberDocHeaders
 import grails.test.mixin.TestMixin
 import grails.test.mixin.web.ControllerUnitTestMixin
 import org.codehaus.groovy.grails.commons.GrailsClass
+import sample.OtherController
 import sample.PodController
 import spock.lang.Specification
 
@@ -16,12 +18,14 @@ class ControllerReaderSpec extends Specification {
     MetadataReader metadataReaderMock
     UberDocErrors errorsMock
     UberDocHeaders headersMock
+    UberDocController controllerMock
     UberDocError errorMock
     UberDocHeader headerMock
 
     def setup(){
         metadataReaderMock = Mock()
         errorsMock = Mock()
+        controllerMock = Mock()
         headersMock = Mock()
         errorMock = Mock()
         headerMock = Mock()
@@ -214,6 +218,46 @@ class ControllerReaderSpec extends Specification {
 
         when:
         def m = reader.getHeaders()
+
+        then:
+        !m
+    }
+
+    void "isSupported returns true for PodController if metadata reader returns an instance"() {
+        given:
+        ControllerReader reader = new ControllerReader(PodController.asType(GrailsClass))
+
+        and:
+        headersMock.value() >> []
+
+        and:
+        metadataReaderMock.getAnnotation(_) >> metadataReaderMock
+        metadataReaderMock.inController(_) >> controllerMock
+
+        reader.metadataReader = metadataReaderMock
+
+        when:
+        def m = reader.controllerIsSupported
+
+        then:
+        m
+    }
+
+    void "isSupported returns false for OtherController if metadata reader returns null"() {
+        given:
+        ControllerReader reader = new ControllerReader(OtherController.asType(GrailsClass))
+
+        and:
+        headersMock.value() >> []
+
+        and:
+        metadataReaderMock.getAnnotation(_) >> metadataReaderMock
+        metadataReaderMock.inController(_) >> null
+
+        reader.metadataReader = metadataReaderMock
+
+        when:
+        def m = reader.controllerIsSupported
 
         then:
         !m

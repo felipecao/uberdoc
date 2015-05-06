@@ -1,15 +1,6 @@
 package sample
 
-import com.uberall.uberdoc.annotation.UberDocController
-import com.uberall.uberdoc.annotation.UberDocError
-import com.uberall.uberdoc.annotation.UberDocErrors
-import com.uberall.uberdoc.annotation.UberDocHeader
-import com.uberall.uberdoc.annotation.UberDocHeaders
-import com.uberall.uberdoc.annotation.UberDocQueryParam
-import com.uberall.uberdoc.annotation.UberDocQueryParams
-import com.uberall.uberdoc.annotation.UberDocResource
-import com.uberall.uberdoc.annotation.UberDocUriParam
-import com.uberall.uberdoc.annotation.UberDocUriParams
+import com.uberall.uberdoc.annotation.*
 
 @UberDocErrors([
         @UberDocError(errorCode = "XYZ123", httpCode = 412, description = "this is a general 412 error, to be applied to all actions/resources in this file"),
@@ -20,8 +11,7 @@ import com.uberall.uberdoc.annotation.UberDocUriParams
         @UberDocHeader(name = "publicToken", sampleValue = "all methods in this file should send a header param", description = "this param should be sent within the headers"),
         @UberDocHeader(name = "other token", sampleValue = "just some other token that every method should send", description = "this param should also be sent within the headers")
 ])
-@UberDocController
-class PodController { // this example simulates a CRUD-ish controller
+class OtherController {
 
     @UberDocResource(requestObject = Pod, responseCollectionOf = Pod, description = "this resource allows all Pods to be retrieved from DB")
     @UberDocError(errorCode = "NF404", httpCode = 404, description = "returned if the resource does not exist")

@@ -1,5 +1,6 @@
 package com.uberall.uberdoc.metadata
 
+import com.uberall.uberdoc.annotation.UberDocController
 import com.uberall.uberdoc.annotation.UberDocErrors
 import com.uberall.uberdoc.annotation.UberDocHeaders
 import org.codehaus.groovy.grails.commons.GrailsClass
@@ -12,6 +13,10 @@ class ControllerReader {
     ControllerReader(GrailsClass gClass) {
         controller = gClass
         metadataReader = new MetadataReader()
+    }
+
+    boolean getControllerIsSupported(){
+        return metadataReader.getAnnotation(UberDocController).inController(controller)
     }
 
     List<Map> getErrors(){

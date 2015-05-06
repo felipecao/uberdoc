@@ -9,7 +9,7 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
     def grailsApplication
     def grailsUrlMappingsHolder
 
-    void "apiDocs works as expected"() {
+    void "apiDocs only retrieves information from controllers annotated with @UberDocController that are not deprecated on UrlMappings"() {
         given:
         UberDocService service = new UberDocService(grailsApplication: grailsApplication, grailsUrlMappingsHolder: grailsUrlMappingsHolder)
 
