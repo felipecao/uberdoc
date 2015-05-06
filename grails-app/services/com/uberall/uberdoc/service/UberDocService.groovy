@@ -46,7 +46,7 @@ class UberDocService {
     Map getApiDocs() {
         Map apiInfo = [:]
 
-        objects = new RequestAndResponseObjects()
+        objects = new RequestAndResponseObjects(grailsApplication)
         metadataReader = new MetadataReader()
         grailsReader = new GrailsReader(grailsApplication, grailsUrlMappingsHolder)
 

@@ -12,6 +12,6 @@ class Pod {
     static hasOne = [jedi: Person]
 
     static constraints = {
-        license nullable: false
+        license blank: true, nullable: false
     }
 }
