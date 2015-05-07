@@ -17,7 +17,7 @@ class UberdocGrailsPlugin {
     ]
 
     // TODO Fill in these fields
-    def title = "Uberdoc Plugin" // Headline display name of the plugin
+    def title = "Uber Doc Plugin" // Headline display name of the plugin
     def author = "Felipe Carvalho"
     def authorEmail = "felipe@uberall.com"
     def description = '''\

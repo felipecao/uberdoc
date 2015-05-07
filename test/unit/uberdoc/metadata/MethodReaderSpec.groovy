@@ -1,6 +1,5 @@
-package com.uberall.uberdoc.metadata
+package uberdoc.metadata
 
-import sample.Pod
 import sample.PodController
 import spock.lang.Specification
 

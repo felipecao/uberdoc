@@ -1,7 +1,7 @@
 package sample
 
-import com.uberall.uberdoc.annotation.UberDocModel
-import com.uberall.uberdoc.annotation.UberDocProperty
+import uberdoc.annotation.UberDocModel
+import uberdoc.annotation.UberDocProperty
 
 @UberDocModel(description = "This class does something...")
 class Pod {

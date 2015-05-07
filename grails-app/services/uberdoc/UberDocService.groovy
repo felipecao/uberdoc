@@ -1,11 +1,11 @@
-package com.uberall.uberdoc.service
+package uberdoc
 
-import com.uberall.uberdoc.annotation.UberDocResource
-import com.uberall.uberdoc.metadata.ControllerReader
-import com.uberall.uberdoc.metadata.GrailsReader
-import com.uberall.uberdoc.metadata.MetadataReader
-import com.uberall.uberdoc.metadata.MethodReader
-import com.uberall.uberdoc.metadata.RequestAndResponseObjects
+import uberdoc.annotation.UberDocResource
+import uberdoc.metadata.ControllerReader
+import uberdoc.metadata.GrailsReader
+import uberdoc.metadata.MetadataReader
+import uberdoc.metadata.MethodReader
+import uberdoc.metadata.RequestAndResponseObjects
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.web.mapping.UrlMappings
 

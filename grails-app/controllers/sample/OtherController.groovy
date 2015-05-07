@@ -1,6 +1,6 @@
 package sample
 
-import com.uberall.uberdoc.annotation.*
+import uberdoc.annotation.*
 
 @UberDocErrors([
         @UberDocError(errorCode = "XYZ123", httpCode = 412, description = "this is a general 412 error, to be applied to all actions/resources in this file"),

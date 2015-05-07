@@ -1,7 +1,7 @@
-package com.uberall.uberdoc.metadata
+package uberdoc.metadata
 
-import com.uberall.uberdoc.annotation.UberDocModel
-import com.uberall.uberdoc.annotation.UberDocProperty
+import uberdoc.annotation.UberDocModel
+import uberdoc.annotation.UberDocProperty
 import groovy.util.logging.Log4j
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.commons.GrailsDomainClass

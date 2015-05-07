@@ -1,10 +1,10 @@
-package com.uberall.uberdoc.metadata
+package uberdoc.metadata
 
-import com.uberall.uberdoc.annotation.UberDocController
-import com.uberall.uberdoc.annotation.UberDocError
-import com.uberall.uberdoc.annotation.UberDocErrors
-import com.uberall.uberdoc.annotation.UberDocHeader
-import com.uberall.uberdoc.annotation.UberDocHeaders
+import uberdoc.annotation.UberDocController
+import uberdoc.annotation.UberDocError
+import uberdoc.annotation.UberDocErrors
+import uberdoc.annotation.UberDocHeader
+import uberdoc.annotation.UberDocHeaders
 import grails.test.mixin.TestMixin
 import grails.test.mixin.web.ControllerUnitTestMixin
 import org.codehaus.groovy.grails.commons.GrailsClass

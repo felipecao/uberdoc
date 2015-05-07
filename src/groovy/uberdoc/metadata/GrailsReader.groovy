@@ -1,4 +1,4 @@
-package com.uberall.uberdoc.metadata
+package uberdoc.metadata
 
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.web.mapping.UrlMappings

@@ -1,14 +1,14 @@
-package com.uberall.uberdoc.metadata
+package uberdoc.metadata
 
-import com.uberall.uberdoc.annotation.UberDocError
-import com.uberall.uberdoc.annotation.UberDocErrors
-import com.uberall.uberdoc.annotation.UberDocHeader
-import com.uberall.uberdoc.annotation.UberDocHeaders
-import com.uberall.uberdoc.annotation.UberDocQueryParam
-import com.uberall.uberdoc.annotation.UberDocQueryParams
-import com.uberall.uberdoc.annotation.UberDocResource
-import com.uberall.uberdoc.annotation.UberDocUriParam
-import com.uberall.uberdoc.annotation.UberDocUriParams
+import uberdoc.annotation.UberDocError
+import uberdoc.annotation.UberDocErrors
+import uberdoc.annotation.UberDocHeader
+import uberdoc.annotation.UberDocHeaders
+import uberdoc.annotation.UberDocQueryParam
+import uberdoc.annotation.UberDocQueryParams
+import uberdoc.annotation.UberDocResource
+import uberdoc.annotation.UberDocUriParam
+import uberdoc.annotation.UberDocUriParams
 
 class MethodReader {
 

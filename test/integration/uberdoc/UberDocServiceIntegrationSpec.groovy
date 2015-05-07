@@ -1,8 +1,6 @@
 package uberdoc
 
-import com.uberall.uberdoc.service.UberDocService
 import grails.test.spock.IntegrationSpec
-import sample.Pod
 
 class UberDocServiceIntegrationSpec extends IntegrationSpec {
 

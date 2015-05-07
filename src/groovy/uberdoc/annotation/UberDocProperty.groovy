@@ -1,12 +1,16 @@
-package com.uberall.uberdoc.annotation
+package uberdoc.annotation
 
 import java.lang.annotation.ElementType
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 import java.lang.annotation.Target
 
-@Target([ElementType.METHOD, ElementType.TYPE])
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@interface UberDocHeaders {
-    UberDocHeader[] value()
+@interface UberDocProperty {
+
+    String sampleValue()
+
+    String description()
+
 }

@@ -1,8 +1,8 @@
-package com.uberall.uberdoc.metadata
+package uberdoc.metadata
 
-import com.uberall.uberdoc.annotation.UberDocController
-import com.uberall.uberdoc.annotation.UberDocErrors
-import com.uberall.uberdoc.annotation.UberDocHeaders
+import uberdoc.annotation.UberDocController
+import uberdoc.annotation.UberDocErrors
+import uberdoc.annotation.UberDocHeaders
 import org.codehaus.groovy.grails.commons.GrailsClass
 
 class ControllerReader {
