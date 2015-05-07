@@ -24,8 +24,8 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
 
         "POST" == m.resources[0].method
         "/api/pods" == m.resources[0].uri
-        Pod == m.resources[0].requestObject
-        Pod == m.resources[0].responseObject
+        "Pod" == m.resources[0].requestObject
+        "Pod" == m.resources[0].responseObject
         !m.resources[0].responseCollection
         3 == m.resources[0].headers.size()
         3 == m.resources[0].errors.size()
@@ -34,8 +34,8 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
 
         "PUT" == m.resources[1].method
         "/api/pods/{id}" == m.resources[1].uri
-        Pod == m.resources[1].requestObject
-        Pod == m.resources[1].responseObject
+        "Pod" == m.resources[1].requestObject
+        "Pod" == m.resources[1].responseObject
         !m.resources[1].responseCollection
         2 == m.resources[1].headers.size()
         3 == m.resources[1].errors.size()
@@ -44,8 +44,8 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
 
         "PATCH" == m.resources[2].method
         "/api/pods/{id}" == m.resources[2].uri
-        Pod == m.resources[2].requestObject
-        Pod == m.resources[2].responseObject
+        "Pod" == m.resources[2].requestObject
+        "Pod" == m.resources[2].responseObject
         !m.resources[2].responseCollection
         2 == m.resources[2].headers.size()
         3 == m.resources[2].errors.size()
@@ -54,9 +54,9 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
 
         "GET" == m.resources[3].method
         "/api/pods/id" == m.resources[3].uri
-        Pod == m.resources[3].requestObject
+        "Pod" == m.resources[3].requestObject
         !m.resources[3].responseObject
-        Pod == m.resources[3].responseCollection
+        "Pod" == m.resources[3].responseCollection
         2 == m.resources[3].headers.size()
         4 == m.resources[3].errors.size()
         0 == m.resources[3].queryParams.size()
@@ -73,5 +73,21 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
         0 == m.resources[4].uriParams.size()
 
         m.objects
+
+        1 == m.objects.size()
+        3 == m.objects."Pod".size()
+        "Pod" == m.objects."Pod".name
+        "This class does something..." == m.objects."Pod".description
+        1 == m.objects."Pod".properties.size()
+        5 == m.objects."Pod".properties.first().size()
+        "license" == m.objects."Pod".properties.first().name
+        "String" == m.objects."Pod".properties.first().type
+        "license is used for ..." == m.objects."Pod".properties.first().description
+        "DBNG3r" == m.objects."Pod".properties.first().sampleValue
+        2 == m.objects."Pod".properties.first().constraints.size()
+        "blank" == m.objects."Pod".properties.first().constraints.first().constraint
+        true == m.objects."Pod".properties.first().constraints.first().value
+        "nullable" == m.objects."Pod".properties.first().constraints.last().constraint
+        false == m.objects."Pod".properties.first().constraints.last().value
     }
 }

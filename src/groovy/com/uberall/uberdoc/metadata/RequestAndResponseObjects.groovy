@@ -73,37 +73,47 @@ class RequestAndResponseObjects {
             // collect class information
             UberDocModel modelAnnotation = clazz.getAnnotation(UberDocModel)
             Map clazzInfo = [:]
-            clazzInfo << [name: clazz.name]
+            clazzInfo << [name: clazz.simpleName]
             clazzInfo << [description: modelAnnotation.description()]
             clazzInfo << [properties: []]
+
+            GrailsDomainClass domainClass = grailsApplication.getDomainClass(clazz.name) as GrailsDomainClass
+            def domainClassConstraints = domainClass.getConstrainedProperties()
 
             // go over each field that is annotated and grab information from it
             clazz.declaredFields.each { Field field ->
                 if (field.isAnnotationPresent(UberDocProperty)) {
-                    Map fieldInformation = getProperties(field)
+                    Map fieldInformation = getProperties(field, domainClassConstraints)
                     clazzInfo.properties << fieldInformation
                 }
             }
 
-            result << [(clazz): clazzInfo]
+            result << [(clazz.simpleName): clazzInfo]
         }
 
         return result
     }
 
-    private Map getProperties(Field field) {
+    private Map getProperties(Field field, def classConstraints) {
         UberDocProperty propertyAnnotation = field.getAnnotation(UberDocProperty)
 
         // grab info from annotation
         Map propertyMap = [:]
+        def constraints = []
+
         propertyMap << [name: field.name]
-        propertyMap << [type: field.type.name]
+        propertyMap << [type: field.type.simpleName]
         propertyMap << [description: propertyAnnotation.description()]
         propertyMap << [sampleValue: propertyAnnotation.sampleValue()]
 
         // read constraints
-        GrailsDomainClass domainClass = grailsApplication.getDomainClass(field.getDeclaringClass().name) as GrailsDomainClass
-        propertyMap << [constraints: domainClass.getConstrainedProperties()]
+        classConstraints.entrySet().findAll{it.key == field.name}.each { constrainedProperty ->
+            constrainedProperty.value.appliedConstraints.each { hibernateConstraint ->
+                constraints << [constraint: hibernateConstraint.name, value: hibernateConstraint.constraintParameter]
+            }
+        }
+
+        propertyMap << [constraints: constraints]
 
         return propertyMap
     }
