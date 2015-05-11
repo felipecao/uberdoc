@@ -8,6 +8,10 @@ import org.codehaus.groovy.grails.commons.GrailsDomainClass
 
 import java.lang.reflect.Field
 
+/**
+ * This class holds information about classes used as request and response objects along the API.
+ * @see uberdoc.UberDocService
+ */
 @Log4j
 class RequestAndResponseObjects {
 

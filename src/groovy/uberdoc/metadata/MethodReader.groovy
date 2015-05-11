@@ -10,6 +10,9 @@ import uberdoc.annotation.UberDocResource
 import uberdoc.annotation.UberDocUriParam
 import uberdoc.annotation.UberDocUriParams
 
+/**
+ * Extracts meta-information and annotations info from methods using reflection.
+ */
 class MethodReader {
 
     def method

@@ -5,6 +5,9 @@ import uberdoc.annotation.UberDocErrors
 import uberdoc.annotation.UberDocHeaders
 import org.codehaus.groovy.grails.commons.GrailsClass
 
+/**
+ * This class is responsible for reading Grails controllers metadata, such as controller level annotations.
+ */
 class ControllerReader {
 
     GrailsClass controller

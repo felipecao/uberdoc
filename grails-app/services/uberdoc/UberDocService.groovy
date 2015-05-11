@@ -9,6 +9,12 @@ import uberdoc.metadata.RequestAndResponseObjects
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.web.mapping.UrlMappings
 
+/**
+ * This service is responsible for parsing @UberDoc annotations available in source code and structure it as a map,
+ * returned to the invoking component for proper display and rendering.
+ *
+ * @see RequestAndResponseObjects
+ */
 class UberDocService {
 
     def grailsApplication

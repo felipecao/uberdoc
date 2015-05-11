@@ -3,6 +3,9 @@ package uberdoc.metadata
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.web.mapping.UrlMappings
 
+/**
+ * This class provides higher class methods to interact with Grails configurations and metadata.
+ */
 class GrailsReader {
 
     def grailsApplication

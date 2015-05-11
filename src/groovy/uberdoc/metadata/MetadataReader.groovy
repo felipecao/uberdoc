@@ -4,6 +4,9 @@ import org.codehaus.groovy.grails.commons.GrailsClass
 
 import java.lang.reflect.Method
 
+/**
+ * General purpose class, internally reused to obtain metadata information from classes.
+ */
 class MetadataReader {
 
     private def type
