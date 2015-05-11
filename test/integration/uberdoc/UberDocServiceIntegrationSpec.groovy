@@ -76,7 +76,8 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
         3 == m.objects."Pod".size()
         "Pod" == m.objects."Pod".name
         "This class does something..." == m.objects."Pod".description
-        1 == m.objects."Pod".properties.size()
+        2 == m.objects."Pod".properties.size()
+
         5 == m.objects."Pod".properties.first().size()
         "license" == m.objects."Pod".properties.first().name
         "String" == m.objects."Pod".properties.first().type
@@ -85,6 +86,17 @@ class UberDocServiceIntegrationSpec extends IntegrationSpec {
         2 == m.objects."Pod".properties.first().constraints.size()
         "blank" == m.objects."Pod".properties.first().constraints.first().constraint
         true == m.objects."Pod".properties.first().constraints.first().value
+        "nullable" == m.objects."Pod".properties.first().constraints.last().constraint
+        false == m.objects."Pod".properties.first().constraints.last().value
+
+        5 == m.objects."Pod".properties.last().size()
+        "botName" == m.objects."Pod".properties.last().name
+        "String" == m.objects."Pod".properties.last().type
+        "botName is used for movies credits ..." == m.objects."Pod".properties.last().description
+        "C3PO" == m.objects."Pod".properties.last().sampleValue
+        2 == m.objects."Pod".properties.last().constraints.size()
+        "custom" == m.objects."Pod".properties.last().constraints.first().constraint
+        "see object documentation" == m.objects."Pod".properties.last().constraints.first().value
         "nullable" == m.objects."Pod".properties.first().constraints.last().constraint
         false == m.objects."Pod".properties.first().constraints.last().value
     }

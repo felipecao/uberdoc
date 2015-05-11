@@ -109,7 +109,12 @@ class RequestAndResponseObjects {
         // read constraints
         classConstraints.entrySet().findAll{it.key == field.name}.each { constrainedProperty ->
             constrainedProperty.value.appliedConstraints.each { hibernateConstraint ->
-                constraints << [constraint: hibernateConstraint.name, value: hibernateConstraint.constraintParameter]
+                if(hibernateConstraint.name != "validator"){
+                    constraints << [constraint: hibernateConstraint.name, value: hibernateConstraint.constraintParameter]
+                }
+                else{
+                    constraints << [constraint: "custom", value: "see object documentation"]
+                }
             }
         }
 

@@ -50,7 +50,7 @@ This plugin offers basically 8 annotations, along with plural variations of some
 - @UberDocHeader(s): provides information about headers to be used when interacting with a given resource / controller method. Just like @UberDocError, when used at controller level, defines documentation to be applied to every method within that controller.
 - @UberDocUriParam(s): provides information about URI parameters used by a resource (e.g.: /api/dogs/{id}/children/{otherId}/). This annotation has a parameter called "name", which will be used for displaying about a specific parameter in the URI. Note that this is positional, meaning, an annotation about {id} should be used before an annotation about {otherId}, so that information gets displayed in the same order.
 - @UberDocQueryParam(s): documents information about query parameters used in a resources URL. For instance, it can be used to document pagination parameters within a URL like /api/dogs/?max=10&offset=3.
-- @UberDocModel: describers classes used as request or response objects.
+- @UberDocModel: describes classes used as request or response objects.
 - @UberDocProperty: defines information about properties of a given request/response object to be made available in the API documentation, such as a description and a sample value.
 
 Just annotate the proper classes / methods, inject UberDocService and play around with getApiDocs. All of the rest (cacheing, UI) can be implemented in the way that fits you best :)
